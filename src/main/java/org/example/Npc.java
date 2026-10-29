@@ -10,6 +10,10 @@ public class Npc {
         this.dialogue = dialogue;
     }
 
+    public String getDialogue(){
+        return dialogue+" My name is "+name;
+    }
+
 
 
 }

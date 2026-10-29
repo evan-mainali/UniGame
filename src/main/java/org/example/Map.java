@@ -82,6 +82,11 @@ public class Map {
             Room r = exit.getDestination();
             currentRoom = r;
             System.out.println("You moved from " + previousRoom.getRoomName() + " you are now in " + currentRoom.getRoomName());
+            if (currentRoom.getNpc() != null) {
+                System.out.println( currentRoom.getNpc().getDialogue());
+            }
+
+
         }
     }
 

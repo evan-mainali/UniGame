@@ -9,6 +9,7 @@ public class Room {
     private String description;
     private Item item;
     private List<Exit> exits = new ArrayList<>(); // Store exits in a list
+    private Npc npc;
 
     public Room(String name, String description) {
         this.name = name;
@@ -24,7 +25,7 @@ public class Room {
     }
 
     public void addNpc(Npc npc) {
-        // TODO: Save NPC reference if needed
+        this.npc = (npc);
     }
 
     // Helper method to find an exit by direction
@@ -47,6 +48,10 @@ public class Room {
 
     public String getDescription() {
         return description;
+    }
+
+    public Npc getNpc(){
+        return npc;
     }
 
 

@@ -19,7 +19,7 @@ public class Main {
 
         // Main game loop
         while (map.isRunning()) {
-            System.out.print("\n> ");
+            System.out.print("> ");
             String input = scanner.nextLine();
 
             // Parse the command and print the response
