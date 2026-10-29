@@ -1,38 +1,35 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-
-
-
-        Scanner input = new Scanner(System.in);
-        String command = input.next();
         Map map = new Map();
-        Parser parse = new Parser();
-        parse.parse(map,command);
+        Parser parser = new Parser();
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println(parse);
+        System.out.println("=========================================");
+        System.out.println("   WELCOME TO THE SPACE ADVENTURE GAME   ");
+        System.out.println("=========================================");
 
+        // Show starting room details
+        Room current = map.getCurrentRoom();
+        System.out.println("You are in: " + current.getRoomName());
+        System.out.println(current.getDescription());
 
+        // Main game loop
+        while (map.isRunning()) {
+            System.out.print("\n> ");
+            String input = scanner.nextLine();
 
-        
+            // Parse the command and print the response
+            String response = parser.parse(map, input);
+            if (response != null && !response.isEmpty()) {
+                System.out.println(response);
+            }
+        }
 
-
-
+        scanner.close();
+        System.out.println("Game Over. Thanks for playing!");
     }
-
-  
-
-
-
-
-
-
-
-
 }

@@ -2,9 +2,14 @@ package org.example;
 
 public class Npc {
 
-    public Npc(String name, String dialogue) {
+    private String name;
+    private String dialogue;
 
+    public Npc(String name, String dialogue) {
+        this.name = name;
+        this.dialogue = dialogue;
     }
+
 
 
 }
