@@ -31,10 +31,19 @@ public class Parser {
             map.setRunning(false);
             return "Shutting down ship systems. Goodbye!";
         }
+        else if(input.equals("collect")){
+            map.collectItem();
+            map.addToPlayerInv();
+            return"";
+        }
+        else if(input.equals("see")){
+            return map.getPlayerInventory();
+
+        }
 
 
         else {
-            return "Unknown command. Try typing 'north', 'south', 'east', 'west', 'look', or 'quit'.";
+            return "Unknown command. Try typing 'north', 'south', 'east', 'west', 'look', 'collect' 'see',or 'quit'.";
         }
     }
 }

@@ -28,14 +28,14 @@ public class Room {
         this.npc = (npc);
     }
 
-    // Helper method to find an exit by direction
+    // Method to get exit with direction
     public Exit getExit(String direction) {
         for (Exit exit : exits) {
             if (exit.getDirection().equalsIgnoreCase(direction)) {
                 return exit;
             }
         }
-        return null; // Return null if direction doesn't exist
+        return null;
     }
 
     public String getItem() {
@@ -53,6 +53,8 @@ public class Room {
     public Npc getNpc(){
         return npc;
     }
+
+
 
 
 }

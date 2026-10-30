@@ -4,7 +4,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Map map = new Map();
+
+        System.out.println("Enter your name");
+        Scanner nameInput = new Scanner(System.in);
+        String name = nameInput.nextLine();
+        Player player = new Player(name);
+        Map map = new Map(player);
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
 

@@ -10,8 +10,9 @@ public class Map {
     Room r4;
     Room r5;
     private Room currentRoom;
+    private Player player;
 
-    public Map() {
+    public Map(Player player) {
 
         r0 = new Room("R0","Starting Area");
         r1 = new Room("R1","The hallway with item slot 0");
@@ -51,6 +52,7 @@ public class Map {
         // 4. Set the starting room and game status
         setRunning(true);
         currentRoom=r0;
+        this.player=player;
         }
 
         public boolean isRunning() {
@@ -89,6 +91,24 @@ public class Map {
 
         }
     }
+    public void collectItem(){
+        System.out.println("Collected "+currentRoom.getItem());
+    }
+    public void addToPlayerInv(){
+        Room room = currentRoom;
+        if(room.getItem()!=null){
+            player.addToInv(room.getItem());
+        }
+
+    }
+    public String getPlayerName(){
+        return player.getName();
+    }
+    public String getPlayerInventory(){
+        return player.getInventory();
+    }
+
+
 
 
 

@@ -13,13 +13,22 @@ public class Player {
 
         public String getInventory(){
 
-            String playerInv ="";
+            String playerInv ="Inventory Contains: ";
             for(String i: inventory){
                 playerInv = i+" ";
             }
             return playerInv;
         }
+
+        public String getName(){
+            return name;
+        }
+
         public void addToInv(String item){
             inventory.add(item);
         }
+
+
+
+
 }
