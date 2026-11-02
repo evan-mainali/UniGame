@@ -33,12 +33,15 @@ public class Parser {
         }
         else if(input.equals("collect")){
             map.collectItem();
-            map.addToPlayerInv();
             return"";
         }
         else if(input.equals("see")){
             return map.getPlayerInventory();
 
+        }
+        else if(input.equals("use")){
+            map.useItem();
+            return "";
         }
 
 

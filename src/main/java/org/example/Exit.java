@@ -4,16 +4,16 @@ public class Exit {
 
     private Room destinaton;
     private String direction;
-    private boolean locked;
+    private boolean islocked;
 
-    public Exit(String direction, Room destination, boolean locked) {
+    public Exit(String direction, Room destination, boolean isLocked) {
         this.destinaton = destination;
-        this.locked = locked;
+        this.islocked = isLocked;
         this.direction = direction;
     }
 
     public boolean isLocked(){
-        return locked;
+        return islocked;
     }
 
     public Room getDestination(){
@@ -21,6 +21,10 @@ public class Exit {
     }
     public String getDirection(){
         return direction;
+    }
+
+    public void setLocked(boolean isLocked){
+        this.islocked = isLocked;
     }
 
 }

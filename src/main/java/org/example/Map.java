@@ -11,13 +11,14 @@ public class Map {
     Room r5;
     private Room currentRoom;
     private Player player;
+    private boolean hasEntered = true;
 
     public Map(Player player) {
 
         r0 = new Room("R0","Starting Area");
         r1 = new Room("R1","The hallway with item slot 0");
         r2 = new Room("R2", "The Cargo Bay with an ITEM");
-        r3 = new Room("R3","high-security science lab needing Item slot 0");
+        r3 = new Room("R3","high-security science lab needing ITEM_SLOT_0");
         r4 = new Room("R4","The Command Deck with an NPC and ITEM_SLOT_1");
         r5 = new Room("R5","Escape pod bay needing ITEM_SLOT_1");
 
@@ -29,7 +30,7 @@ public class Map {
         // 3. Link room exits (connecting the map paths together)
         // R0 connections
         r0.addExit(new Exit("north", r1,false));
-        r0.addExit(new Exit("west", r3,false));
+        r0.addExit(new Exit("west", r3,true));
         r0.addExit(new Exit("east", r2,false));
 
         // R1 connections
@@ -38,16 +39,16 @@ public class Map {
 
         // R2 connections
         r2.addExit(new Exit("west", r0,false));
-        r2.addExit(new Exit("east", r5,false));
+        r2.addExit(new Exit("east", r5,true));
 
-        // R3 connections (Locked door needing ITEM_SLOT_0)
-        r3.addExit(new Exit("east", r0,true));
+
+        r3.addExit(new Exit("east", r0,false));
 
         // R4 connections
         r4.addExit(new Exit("south", r1,false));
 
-        // R5 connections (Locked door needing ITEM_SLOT_1)
-        r5.addExit(new Exit("west", r2,true));
+
+        r5.addExit(new Exit("west", r2,false));
 
         // 4. Set the starting room and game status
         setRunning(true);
@@ -79,33 +80,71 @@ public class Map {
         else if (exit.isLocked()) {
             Room r = exit.getDestination();
             System.out.println("Locked: " + r.getDescription());
+
         }
         else {
             Room r = exit.getDestination();
             currentRoom = r;
             System.out.println("You moved from " + previousRoom.getRoomName() + " you are now in " + currentRoom.getRoomName());
+            System.out.println(currentRoom.getDescription());
             if (currentRoom.getNpc() != null) {
                 System.out.println( currentRoom.getNpc().getDialogue());
+
             }
 
 
         }
     }
-    public void collectItem(){
-        System.out.println("Collected "+currentRoom.getItem());
-    }
-    public void addToPlayerInv(){
-        Room room = currentRoom;
-        if(room.getItem()!=null){
-            player.addToInv(room.getItem());
-        }
+    public void collectItem() {
+        // Check if the current room actually has an item
+        if (currentRoom.getItem() != null) {
+            String itemName = currentRoom.getItem();
 
+            // 1. Add it to the player's inventory
+            player.addToInv(itemName);
+
+            // 2. Print confirmation
+            System.out.println("Collected " + itemName);
+
+        } else {
+            System.out.println("There is nothing to collect here.");
+        }
     }
+
     public String getPlayerName(){
         return player.getName();
     }
     public String getPlayerInventory(){
         return player.getInventory();
+    }
+
+
+    public void useItem(){
+
+        Room inRoom = currentRoom;
+        if(inRoom.getRoomName().equals("R0") && inRoom.getExit("west").isLocked()) {
+            for(String i:player.getPlayerInvArray()){
+                if(r3.getDescription().contains(i)){
+                    r0.getExit("west").setLocked(false);
+                    System.out.println("Room unlocked");
+
+                }
+            }
+        }
+        else if(inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked()){
+            for(String i:player.getPlayerInvArray()){
+                if(r5.getDescription().contains(i)){
+                    r2.getExit("east").setLocked(false);
+                    System.out.println("Room unlocked");
+
+                }
+            }
+        }
+        else{
+            System.out.println("room already unlocked");
+        }
+
+
     }
 
 
