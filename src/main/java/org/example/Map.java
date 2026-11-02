@@ -78,12 +78,13 @@ public class Map {
 
         else if (exit.isLocked()) {
             Room r = exit.getDestination();
-            System.out.println("Locked: " + r.getDescription());
+            System.out.println("Locked: " + r.getDescription()); // focal point of where the exits are failing
         }
         else {
             Room r = exit.getDestination();
             currentRoom = r;
             System.out.println("You moved from " + previousRoom.getRoomName() + " you are now in " + currentRoom.getRoomName());
+            System.out.println(currentRoom.getDescription());
             if (currentRoom.getNpc() != null) {
                 System.out.println( currentRoom.getNpc().getDialogue());
             }
@@ -91,16 +92,22 @@ public class Map {
 
         }
     }
-    public void collectItem(){
-        System.out.println("Collected "+currentRoom.getItem());
-    }
-    public void addToPlayerInv(){
-        Room room = currentRoom;
-        if(room.getItem()!=null){
-            player.addToInv(room.getItem());
-        }
+    public void collectItem() {
+        // Check if the current room actually has an item
+        if (currentRoom.getItem() != null) {
+            String itemName = currentRoom.getItem();
 
+            // 1. Add it to the player's inventory
+            player.addToInv(itemName);
+
+            // 2. Print confirmation
+            System.out.println("Collected " + itemName);
+
+        } else {
+            System.out.println("There is nothing to collect here.");
+        }
     }
+
     public String getPlayerName(){
         return player.getName();
     }

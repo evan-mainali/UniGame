@@ -11,9 +11,11 @@ public class Room {
     private List<Exit> exits = new ArrayList<>(); // Store exits in a list
     private Npc npc;
 
+
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+
     }
 
     public void addExit(Exit exit) {
@@ -30,13 +32,16 @@ public class Room {
 
     // Method to get exit with direction
     public Exit getExit(String direction) {
+
         for (Exit exit : exits) {
             if (exit.getDirection().equalsIgnoreCase(direction)) {
                 return exit;
             }
         }
         return null;
+
     }
+
 
     public String getItem() {
         return (item != null) ? item.getName() : "No items here";

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
         private String name;
-        ArrayList<String> inventory = new ArrayList<>();
+        ArrayList<String> inventory= new ArrayList<>();
 
         public Player(String name){
             this.name = name;
@@ -13,11 +13,11 @@ public class Player {
 
         public String getInventory(){
 
-            String playerInv ="Inventory Contains: ";
+            String playerInv ="";
             for(String i: inventory){
-                playerInv = i+" ";
+                playerInv += i+" ";
             }
-            return playerInv;
+            return "Inventory Contains: "+playerInv;
         }
 
         public String getName(){
