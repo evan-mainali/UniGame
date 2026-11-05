@@ -29,15 +29,20 @@ public class Parser {
         // 3. Handle Quitting the Game
         else if (input.equals("quit") || input.equals("exit")) {
             map.setRunning(false);
+            System.out.println("Your score was "+map.getScore());
             return "Shutting down ship systems. Goodbye!";
         }
         else if(input.equals("collect")){
             map.collectItem();
             return"";
         }
-        else if(input.equals("see")){
+        else if(input.equals("Inventory")){
             return map.getPlayerInventory();
 
+        }
+        else if(input.equals("score")){
+            System.out.println(map.getScore());
+            return "";
         }
         else if(input.equals("use")){
             map.useItem();

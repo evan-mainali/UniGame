@@ -12,6 +12,7 @@ public class Map {
     private Room currentRoom;
     private Player player;
     private boolean hasEntered = true;
+    private Score score = new Score();
 
     public Map(Player player) {
 
@@ -91,7 +92,7 @@ public class Map {
                 System.out.println( currentRoom.getNpc().getDialogue());
 
             }
-
+            score.deductScore();;
 
         }
     }
@@ -100,10 +101,8 @@ public class Map {
         if (currentRoom.getItem() != null) {
             String itemName = currentRoom.getItem();
 
-            // 1. Add it to the player's inventory
             player.addToInv(itemName);
 
-            // 2. Print confirmation
             System.out.println("Collected " + itemName);
 
         } else {
@@ -127,17 +126,21 @@ public class Map {
                 if(r3.getDescription().contains(i)){
                     r0.getExit("west").setLocked(false);
                     System.out.println("Room unlocked");
-
+                    score.addScore();
+                    return;
                 }
+                System.out.println("item not in inventory");
             }
+
         }
         else if(inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked()){
             for(String i:player.getPlayerInvArray()){
                 if(r5.getDescription().contains(i)){
                     r2.getExit("east").setLocked(false);
                     System.out.println("Room unlocked");
-
+                    return;
                 }
+                System.out.println("Item not in inventory");
             }
         }
         else{
@@ -145,6 +148,10 @@ public class Map {
         }
 
 
+    }
+
+    public int getScore(){
+        return score.getScore();
     }
 
 
