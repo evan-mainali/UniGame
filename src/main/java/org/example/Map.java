@@ -11,16 +11,16 @@ public class Map {
     Room r5;
     private Room currentRoom;
     private Player player;
-    private boolean hasEntered = true;
+    private Score score = new Score();
 
     public Map(Player player) {
 
         r0 = new Room("R0","Starting Area");
-        r1 = new Room("R1","The hallway with item slot 0");
-        r2 = new Room("R2", "The Cargo Bay with an ITEM");
-        r3 = new Room("R3","high-security science lab needing ITEM_SLOT_0");
-        r4 = new Room("R4","The Command Deck with an NPC and ITEM_SLOT_1");
-        r5 = new Room("R5","Escape pod bay needing ITEM_SLOT_1");
+        r1 = new Room("R1","The hallway");
+        r2 = new Room("R2", "The Cargo Bay with");
+        r3 = new Room("R3","high-security science lab");
+        r4 = new Room("R4","The Command Deck with an NPC");
+        r5 = new Room("R5","Escape pod bay needing");
 
         r1.addItem(new Item("ITEM_SLOT_0", "A maintenance chip.", r3, "Slot 0 accepted.", "key", r3));
         r2.addItem(new Item("ITEM", "A mysterious glowing component.", null, "You examine the item.", "misc", null));
@@ -91,20 +91,18 @@ public class Map {
                 System.out.println( currentRoom.getNpc().getDialogue());
 
             }
-
+            score.deductScore();;
 
         }
     }
     public void collectItem() {
         // Check if the current room actually has an item
         if (currentRoom.getItem() != null) {
-            String itemName = currentRoom.getItem();
+            Item item = currentRoom.getItem();
 
-            // 1. Add it to the player's inventory
-            player.addToInv(itemName);
-
-            // 2. Print confirmation
-            System.out.println("Collected " + itemName);
+            player.addToInv(item);
+            System.out.println("Collected " + item.getName());
+            currentRoom.removeItem(); //removes from room after it has been collected.
 
         } else {
             System.out.println("There is nothing to collect here.");
@@ -119,32 +117,46 @@ public class Map {
     }
 
 
-    public void useItem(){
+    public void useItem(String itemName) {
 
         Room inRoom = currentRoom;
-        if(inRoom.getRoomName().equals("R0") && inRoom.getExit("west").isLocked()) {
-            for(String i:player.getPlayerInvArray()){
-                if(r3.getDescription().contains(i)){
-                    r0.getExit("west").setLocked(false);
-                    System.out.println("Room unlocked");
+        String itemNameUpperCase = itemName.toUpperCase();
+        Item item = player.getItemByName(itemNameUpperCase);
 
-                }
+        if (item == null) {
+            System.out.println("Item not in inventory");
+        } else {
+
+            if (inRoom.getRoomName().equals("R0") && inRoom.getExit("west").isLocked()) {
+                r0.getExit("west").setLocked(false);
+                r3 = new Room("R3","High security lab");
+                System.out.println(item.getUsedText());
+                score.addScore();
+                return;
+
+            } else if (inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked()) {
+
+                r2.getExit("east").setLocked(false);
+                r5 = new Room("R5","Escape pod");
+                System.out.println(item.getUsedText());
+                score.addScore();
+                return;
+
+
+
+            }
+            else {
+                System.out.println("room already unlocked");
             }
         }
-        else if(inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked()){
-            for(String i:player.getPlayerInvArray()){
-                if(r5.getDescription().contains(i)){
-                    r2.getExit("east").setLocked(false);
-                    System.out.println("Room unlocked");
-
-                }
-            }
-        }
-        else{
-            System.out.println("room already unlocked");
-        }
 
 
+
+
+    }
+
+    public int getScore(){
+        return score.getScore();
     }
 
 

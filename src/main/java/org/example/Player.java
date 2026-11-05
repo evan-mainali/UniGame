@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
         private String name;
-        ArrayList<String> inventory= new ArrayList<>();
+        ArrayList<Item> inventory= new ArrayList<>();
 
         public Player(String name){
             this.name = name;
@@ -14,8 +14,8 @@ public class Player {
         public String getInventory(){
 
             String playerInv ="";
-            for(String i: inventory){
-                playerInv += i+" ";
+            for(Item i: inventory){
+                playerInv += i.getName()+" ";
             }
             return "Inventory Contains: "+playerInv;
         }
@@ -24,12 +24,25 @@ public class Player {
             return name;
         }
 
-        public void addToInv(String item){
+        public void addToInv(Item item){
             inventory.add(item);
         }
 
         public ArrayList<String> getPlayerInvArray(){
-            return inventory;
+            ArrayList<String> itemStrings = new ArrayList<>();
+            for(Item i : inventory){
+                itemStrings.add(i.getName());
+            }
+            return itemStrings;
+        }
+
+        public Item getItemByName(String item){
+            for(Item i:inventory){
+                if(i.getName().equals(item.toUpperCase())){
+                    return i;
+                }
+            }
+            return null;
         }
 
 

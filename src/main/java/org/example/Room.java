@@ -8,7 +8,7 @@ public class Room {
     private String name;
     private String description;
     private Item item;
-    private List<Exit> exits = new ArrayList<>(); // Store exits in a list
+    private ArrayList<Exit> exits = new ArrayList<>(); // Store exits in a list
     private Npc npc;
 
 
@@ -41,11 +41,22 @@ public class Room {
         return null;
 
     }
+    public ArrayList<Exit> getExits(){
+        return exits;
 
-
-    public String getItem() {
-        return (item != null) ? item.getName() : "No items here";
     }
+
+
+    public Item getItem() {
+        return (item != null) ? item : null;
+    }
+    public void removeItem(){
+      item = null;
+    }
+    public String getItemName(){
+        return (item!=null)? item.getName():null;
+    }
+
 
     public String getRoomName() {
         return name;
