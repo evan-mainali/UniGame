@@ -14,7 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=========================================");
-        System.out.println("   WELCOME TO THE SPACE ADVENTURE GAME   ");
+        System.out.println(" WELCOME TO THE SPACE ADVENTURE GAME "+name.toUpperCase());
         System.out.println("=========================================");
 
         // Show starting room details

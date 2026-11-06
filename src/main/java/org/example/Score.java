@@ -22,4 +22,8 @@ public class Score {
 
                 return score;
         }
+
+        public int maxScore(){
+                return 0;
+        }
 }

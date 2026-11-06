@@ -17,27 +17,26 @@ public class Map {
 
         r0 = new Room("R0","Starting Area");
         r1 = new Room("R1","The hallway");
-        r2 = new Room("R2", "The Cargo Bay with");
+        r2 = new Room("R2", "The Cargo Bay");
         r3 = new Room("R3","high-security science lab");
-        r4 = new Room("R4","The Command Deck with an NPC");
-        r5 = new Room("R5","Escape pod bay needing");
+        r4 = new Room("R4","The Command Deck");
+        r5 = new Room("R5","Escape pod bay");
 
         r1.addItem(new Item("ITEM_SLOT_0", "A maintenance chip.", r3, "Slot 0 accepted.", "key", r3));
         r2.addItem(new Item("ITEM", "A mysterious glowing component.", null, "You examine the item.", "misc", null));
         r4.addItem(new Item("ITEM_SLOT_1", "An upper-deck override chip.", r5, "Slot 1 accepted.", "key", r5));
-        r4.addNpc(new Npc("Commander", "Hello traveler, find the chips to escape!"));
+        r4.addNpc(new Npc("Commander", "Welcome to the command deck, the ship has crashed escape as quickly as possible"));
 
-        // 3. Link room exits (connecting the map paths together)
-        // R0 connections
+
         r0.addExit(new Exit("north", r1,false));
         r0.addExit(new Exit("west", r3,true));
         r0.addExit(new Exit("east", r2,false));
 
-        // R1 connections
+
         r1.addExit(new Exit("south", r0,false));
         r1.addExit(new Exit("north", r4,false));
 
-        // R2 connections
+
         r2.addExit(new Exit("west", r0,false));
         r2.addExit(new Exit("east", r5,true));
 
@@ -87,11 +86,8 @@ public class Map {
             currentRoom = r;
             System.out.println("You moved from " + previousRoom.getRoomName() + " you are now in " + currentRoom.getRoomName());
             System.out.println(currentRoom.getDescription());
-            if (currentRoom.getNpc() != null) {
-                System.out.println( currentRoom.getNpc().getDialogue());
+            score.deductScore();
 
-            }
-            score.deductScore();;
 
         }
     }
@@ -102,6 +98,11 @@ public class Map {
 
             player.addToInv(item);
             System.out.println("Collected " + item.getName());
+            System.out.println(item.getDescription());
+            if(item.getType().equals("key")){
+                System.out.println("Required to open "+item.getUsedIn().getRoomName());
+            }
+            score.addScore();
             currentRoom.removeItem(); //removes from room after it has been collected.
 
         } else {
@@ -127,24 +128,29 @@ public class Map {
             System.out.println("Item not in inventory");
         } else {
 
-            if (inRoom.getRoomName().equals("R0") && inRoom.getExit("west").isLocked()) {
+            if (inRoom.getRoomName().equals("R0") && inRoom.getExit("west").isLocked() && item.getUsedIn()!=null) {
                 r0.getExit("west").setLocked(false);
-                r3 = new Room("R3","High security lab");
                 System.out.println(item.getUsedText());
                 score.addScore();
-                return;
-
-            } else if (inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked()) {
-
-                r2.getExit("east").setLocked(false);
-                r5 = new Room("R5","Escape pod");
-                System.out.println(item.getUsedText());
-                score.addScore();
-                return;
-
 
 
             }
+
+            else if (inRoom.getRoomName().equals("R2") && inRoom.getExit("east").isLocked() && item.getUsedIn()!=null) {
+
+                r2.getExit("east").setLocked(false);
+                System.out.println(item.getUsedText());
+                score.addScore();
+
+            }
+
+            else if(inRoom.getRoomName().equals("R2") && item.getUsedIn()==null){
+                System.out.println(item.getUsedText());
+                score.addScore();
+
+            }
+
+
             else {
                 System.out.println("room already unlocked");
             }

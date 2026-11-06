@@ -11,7 +11,8 @@ public class Npc {
     }
 
     public String getDialogue(){
-        return dialogue+" My name is "+name;
+        return "Hello Traveller, my name is: "+name+" "+
+                dialogue;
     }
 
 

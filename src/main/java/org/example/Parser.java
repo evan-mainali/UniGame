@@ -46,6 +46,16 @@ public class Parser {
             System.out.println(map.getScore());
             return "";
         }
+
+        else if(input.equals("talk")){
+            Room r = map.getCurrentRoom();
+            if(r.getNpc()!=null){
+                return r.getNpc().getDialogue();
+            }
+            return "Sorry cannot use that command here as there are no NPCs";
+        }
+
+
         else if(input.equals("use")){
             System.out.println("Enter Item name to use:");
             Scanner useString = new Scanner(System.in);
