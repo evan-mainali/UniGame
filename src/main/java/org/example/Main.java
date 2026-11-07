@@ -1,5 +1,6 @@
 package org.example;
 
+
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
         Scanner nameInput = new Scanner(System.in);
         String name = nameInput.nextLine();
         Player player = new Player(name);
-        Map map = new Map(new Room("R0","Starting Room"));
+        Map map = new Map(new Room("R0","The Hub"));
         map.setPlayer(player);
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
@@ -28,8 +29,7 @@ public class Main {
             if(map.getCurrentRoom().getRoomName().equals("R5")){
                 System.out.println("Escaping");
                 System.out.println("Final score "+map.getScore());
-                System.out.println("Thanks for playing "+map.getPlayerName());
-                map.setRunning(false);
+                break;
             }
             System.out.print("> ");
             String input = scanner.nextLine();
@@ -42,6 +42,6 @@ public class Main {
         }
 
         scanner.close();
-        System.out.println("Game Over. Thanks for playing!");
+        System.out.println("Game Over. Thanks for playing! " +map.getPlayerName().toUpperCase());
     }
 }

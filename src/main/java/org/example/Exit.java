@@ -1,5 +1,6 @@
 package org.example;
 
+
 public class Exit {
 
     private Room destinaton;
@@ -26,5 +27,5 @@ public class Exit {
     public void setLocked(boolean isLocked){
         this.islocked = isLocked;
     }
-
 }
+

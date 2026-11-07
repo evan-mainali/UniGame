@@ -1,31 +1,31 @@
 package org.example;
 
+
 public class Item {
 
     private String name;
-    private Room usedIn;
-    private Object target;
+    private String description;
+    private Room room;
     private String usedText;
     private String type;
-    private String description;
+    private Exit usedIn;
 
-    public Item(String name, String description, Room usedIn, String usedText, String type, Object target) {
+    public Item(String name, String description, Room room, String usedText, String type, Exit usedIn) {
         this.name = name;
-        this.usedIn = usedIn;
-        this.target=target;
+        this.room = room;
         this.type = type;
         this.usedText = usedText;
         this.description=description;
+        this.usedIn = usedIn;
 
     }
 
     public String getName(){
         return name.toLowerCase();
     }
-    public Room getUsedIn(){
+    public Exit getUsedIn(){
         return usedIn;
     }
-    public Object getTarget(){return target;}
 
     public String getType() {
         return type;
@@ -33,6 +33,9 @@ public class Item {
 
     public String getUsedText() {
         return usedText;
+    }
+    public Room getRoom(){
+        return room;
     }
 
     public String getDescription(){return description;}

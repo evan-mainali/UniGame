@@ -6,7 +6,7 @@ public class Npc {
     private String dialogue;
 
     public Npc(String name, String dialogue) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.dialogue = dialogue;
     }
 
@@ -15,6 +15,9 @@ public class Npc {
                 dialogue;
     }
 
-
-
+    public String getName() {
+        return name;
+    }
 }
+
+
