@@ -4,12 +4,12 @@ public class Item {
 
     private String name;
     private Room usedIn;
-    private Room target;
+    private Object target;
     private String usedText;
     private String type;
     private String description;
 
-    public Item(String name, String description, Room usedIn, String usedText, String type, Room target) {
+    public Item(String name, String description, Room usedIn, String usedText, String type, Object target) {
         this.name = name;
         this.usedIn = usedIn;
         this.target=target;
@@ -20,12 +20,12 @@ public class Item {
     }
 
     public String getName(){
-        return name;
+        return name.toLowerCase();
     }
     public Room getUsedIn(){
         return usedIn;
     }
-    public Room getTarget(){return target;}
+    public Object getTarget(){return target;}
 
     public String getType() {
         return type;

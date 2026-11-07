@@ -10,11 +10,13 @@ public class Room {
     private Item item;
     private ArrayList<Exit> exits = new ArrayList<>(); // Store exits in a list
     private Npc npc;
+    private boolean isDark;
 
 
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+
 
     }
 
@@ -68,6 +70,13 @@ public class Room {
 
     public Npc getNpc(){
         return npc;
+    }
+
+    public boolean getIsDark(){
+        return isDark;
+    }
+    public void setIsDark(boolean isDark){
+        this.isDark = isDark;
     }
 
 

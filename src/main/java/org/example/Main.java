@@ -9,7 +9,8 @@ public class Main {
         Scanner nameInput = new Scanner(System.in);
         String name = nameInput.nextLine();
         Player player = new Player(name);
-        Map map = new Map(player);
+        Map map = new Map(new Room("R0","Starting Room"));
+        map.setPlayer(player);
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
 
@@ -17,13 +18,19 @@ public class Main {
         System.out.println(" WELCOME TO THE SPACE ADVENTURE GAME "+name.toUpperCase());
         System.out.println("=========================================");
 
-        // Show starting room details
+
         Room current = map.getCurrentRoom();
         System.out.println("You are in: " + current.getRoomName());
         System.out.println(current.getDescription());
 
         // Main game loop
         while (map.isRunning()) {
+            if(map.getCurrentRoom().getRoomName().equals("R5")){
+                System.out.println("Escaping");
+                System.out.println("Final score "+map.getScore());
+                System.out.println("Thanks for playing "+map.getPlayerName());
+                map.setRunning(false);
+            }
             System.out.print("> ");
             String input = scanner.nextLine();
 

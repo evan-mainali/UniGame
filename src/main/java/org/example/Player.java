@@ -37,8 +37,9 @@ public class Player {
         }
 
         public Item getItemByName(String item){
+            item = item.trim();
             for(Item i:inventory){
-                if(i.getName().equals(item.toUpperCase())){
+                if(i.getName().equalsIgnoreCase(item)){
                     return i;
                 }
             }
